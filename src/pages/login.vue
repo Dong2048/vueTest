@@ -47,11 +47,11 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { login, getadmin } from '~/api/manager'
+import { ref, reactive,onMounted,onBeforeUnmount } from 'vue'
 import{ useRouter} from 'vue-router'
 import { toast } from "~/composables/util";
-import {setToken} from '~/composables/auth'
+import{useStore} from "vuex"
+const stote =useStore();
 // do not use same name with ref
 const form = reactive({
     username: '',
@@ -75,28 +75,30 @@ const onSubmit = () => {
             return false
         }
         loading.value = true;
-        login(form.username, form.password)
-            .then(res => {
-                console.log(res)
-                //提示用户登录成功
-                toast("登录成功")
-                // 设置cookie的token
-                setToken(res.token);
-
-                //获取登录信息
-                getadmin().then(res2 =>{
-                    console.log(res2);
-                });
-                // 跳转到后台首页
-                router.push("/")
-                
-            }).finally(()=>{
+        stote.dispatch("login",form).then(res=>{
+            toast("登录成功")
+            router.push("/")
+        }).finally(()=>{
                 loading.value = false;
-            })
+        })
     })
 }
 
+// 监听回车事件
+function onKeyUp(e){
+    if(e.key == "Enter") onSubmit()
+}
 
+// 页面加载
+onMounted(()=>{
+    // 键盘的监听事件
+    document.addEventListener("keyup",onKeyUp)
+})
+// 页面卸载
+onBeforeUnmount(() => {
+    // 移除键盘监听事件
+    document.removeEventListener("keyup",onKeyUp)
+})
 </script>
 <style scoped>
 .login-container {

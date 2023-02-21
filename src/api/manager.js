@@ -5,6 +5,15 @@ export function login(username,password){
     password
 })
 }
-export function getadmin(){
+//获取用户信息
+export function getinfo(){
     return axios.post("admin/getinfo")
+}
+//退出登录
+export function logout(){
+    return axios.post("admin/logout")
+}
+//退出登录
+export function rePassword(data){
+    return axios.post("admin/updatepassword")
 }
