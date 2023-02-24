@@ -6,14 +6,32 @@ const store = createStore({
     state () {
       return {
         //用户信息
-       user:{}
+       user:{},
+       //侧边菜单宽度
+       asidewidth:"250px",
+       //菜单
+       menus:[],
+       //权限
+       rulesNames:[]
       }
     },
     mutations: {
         //记录用户信息
      SET_USERINFO(state,user){
         state.user=user 
-     }
+     },
+        //展开/收缩菜单
+        handleAsideWidth(state){
+            state.asidewidth = state.asidewidth == "250px" ? "64px" : "250px"
+        },
+        //获取菜单
+        SET_MENUS(state,menus){
+            state.menus=menus
+        },
+        //获取权限
+        SET_RULESNAMES(state,rulesNames){
+            state.rulesNames=rulesNames
+        }
     },
     actions:{
         //登录
@@ -31,6 +49,8 @@ const store = createStore({
             return new Promise((resolve,reject)=>{
                 getinfo().then(res=>{
                     commit("SET_USERINFO",res)
+                    commit("SET_MENUS",res.menus)
+                    commit("SET_RULESNAMES",res.rulesNames)
                     resolve(res)
                 }).catch(err=>reject(err))
             })

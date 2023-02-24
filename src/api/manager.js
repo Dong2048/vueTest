@@ -14,6 +14,6 @@ export function logout(){
     return axios.post("admin/logout")
 }
 //退出登录
-export function rePassword(data){
-    return axios.post("admin/updatepassword")
+export function updatepassword(data){
+    return axios.post("admin/updatepassword",data)
 }
