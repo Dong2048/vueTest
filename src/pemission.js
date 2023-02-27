@@ -3,7 +3,9 @@ import {router,AddRoutes} from '~/router'
 import { getToken } from '~/composables/auth';
 import{toast,startFullLoading,stopFullLoading} from "~/composables/util"
 import store from './store';
+
 // 全局前置守卫(路由发生变化就触发)
+let hasGetInfo =false //防止重复加载getinfo
 router.beforeEach(async(to,from,next)=>{
     const token= getToken();
     //  显示全屏loading
@@ -15,8 +17,9 @@ router.beforeEach(async(to,from,next)=>{
     }
     let hasNewRoutes =false
     //如果用户登录了，自动获取用户信息，并存储在vuex当中
-    if(token){
+    if(token && !hasGetInfo){
       let{menus} = await store.dispatch("getinfo")
+      hasGetInfo =true
       hasNewRoutes= AddRoutes(menus)
     }
     //设置页面title
