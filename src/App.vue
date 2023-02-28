@@ -12,4 +12,7 @@
 background-color:floralwhite!important;
 height: 2px!important;
 }
+body{
+  @apply bg-gray-100;
+}
 </style>

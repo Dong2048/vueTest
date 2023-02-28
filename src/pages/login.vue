@@ -49,8 +49,8 @@
 <script setup>
 import { ref, reactive,onMounted,onBeforeUnmount } from 'vue'
 import{ useRouter} from 'vue-router'
-import { toast } from "~/composables/util";
-import{useStore} from "vuex"
+import { toast } from "~/composables/util"
+import{ useStore } from "vuex"
 const stote =useStore();
 // do not use same name with ref
 const form = reactive({

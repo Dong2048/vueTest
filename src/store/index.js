@@ -3,7 +3,7 @@ import { login, getinfo } from '~/api/manager'
 import {setToken,removeToken} from '~/composables/auth'
 // 创建一个新的 store 实例
 const store = createStore({
-    state () {
+    state () { 
       return {
         //用户信息
        user:{},
