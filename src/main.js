@@ -8,7 +8,9 @@ import store from './store'
 import "./pemission"
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import "nprogress/nprogress.css"
+import permission from '~/directives/permission'
 const app = createApp(App)
+app.use(permission)
 app.use(store)
 app.use(router)
 app.use(ElementPlus)

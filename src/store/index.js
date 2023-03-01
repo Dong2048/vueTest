@@ -50,7 +50,7 @@ const store = createStore({
                 getinfo().then(res=>{
                     commit("SET_USERINFO",res)
                     commit("SET_MENUS",res.menus)
-                    commit("SET_RULESNAMES",res.rulesNames)
+                    commit("SET_RULESNAMES",res.ruleNames)
                     resolve(res)
                 }).catch(err=>reject(err))
             })

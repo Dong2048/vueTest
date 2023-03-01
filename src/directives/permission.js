@@ -1,0 +1,20 @@
+import store from "~/store"
+function hasPermission(value,el=false){
+   if(!Array.isArray(value)){
+        throw new Error('需要配置权限，例如v-permission="[getStatistics3,GET]"')
+   }
+   const hasAuth = value.findIndex(v=>store.state.rulesNames.includes(v)) != -1
+   if(!hasAuth && el){
+        el.parentNode && el.parentNode.removeChild(el)
+   }
+   return hasAuth
+}
+export default{
+    install(app){
+        app.directive("permission",{
+            mounted(el,binding) {
+                hasPermission(binding.value,el)
+            }
+        })
+    }
+}
