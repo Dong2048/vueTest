@@ -70,4 +70,7 @@ defineExpose({
     height: 50px;
     @apply flex items-center mt-auto;
 }
+.el-form-item__label{
+    width:140px !important;
+}
 </style>
