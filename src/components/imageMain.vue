@@ -26,11 +26,20 @@
                 @current-change="getData" />
         </div>
     </el-main>
+    <el-drawer v-model="drawer" title="上传图片">
+    <UploadFile :data="{image_class_id}" @success="handleUploadSuccess"></UploadFile>
+    </el-drawer>
+
 </template>
 <script setup>
 import { getImageList, updateImage,deleteImage } from "~/api/image.js"
 import { ref } from "vue";
 import { showPrompt, toast } from "~/composables/util.js";
+import UploadFile from "./UploadFile.vue";
+//上传图片
+const drawer = ref(false)
+const openUploadFile=()=>drawer.value=true
+
 //加载动画
 const loading = ref(false)
 const list = ref([])
@@ -87,9 +96,13 @@ const handleDelete=(id)=>{
         loadData.value= false
     })
 }
+
+//上传成功
+const handleUploadSuccess =()=>getData(1)
+
 //暴露方法,传回父组件
 defineExpose({
-    loadData
+    loadData,openUploadFile
 })
 </script>
 <style>
